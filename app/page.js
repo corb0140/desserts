@@ -10,6 +10,7 @@ import { useEffect, useState, useRef } from "react";
 import Cart from "./components/Cart/Cart";
 
 export default function Home() {
+  const [cartItems, setCartItems] = useState([]);
   const [active, setActive] = useState({});
   const [quantities, setQuantities] = useState({});
   const numberOfItemsRef = useRef(0);
@@ -22,6 +23,14 @@ export default function Home() {
     console.log(id);
   };
 
+  const addItemToCart = (item) => {
+    setCartItems((state) => [...state, item]);
+  };
+
+  useEffect(() => {
+    console.log(cartItems);
+  }, [cartItems]);
+
   const increaseQuantity = (id) => {
     setQuantities((state) => ({ ...state, [id]: (state[id] || 1) + 1 }));
     numberOfItemsRef.current = numberOfItemsRef.current + 1;
@@ -31,9 +40,14 @@ export default function Home() {
     setQuantities((state) => {
       const newQuantity = (state[id] || 1) - 1;
       if (newQuantity < 1) {
+        setActive((state) => {
+          state[id] = false;
+          return state;
+        });
         const { [id]: _, ...rest } = state;
         return rest;
       }
+      console.log(newQuantity);
       return { ...state, [id]: newQuantity };
     });
     numberOfItemsRef.current = numberOfItemsRef.current - 1;
@@ -80,6 +94,7 @@ export default function Home() {
                     id={active}
                     click={() => {
                       toggleActiveButton(item.id);
+                      addItemToCart(item);
                     }}
                   />
                 )}
@@ -97,7 +112,11 @@ export default function Home() {
         })}
       </div>
 
-      <Cart emptyCart={emptyCart} numberOfItems={numberOfItemsRef.current} />
+      <Cart
+        emptyCart={emptyCart}
+        numberOfItems={numberOfItemsRef.current}
+        items={cartItems}
+      />
     </main>
   );
 }
