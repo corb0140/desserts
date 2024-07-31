@@ -1,5 +1,6 @@
 export const data = [
   {
+    id: 1,
     image: {
       thumbnail: "/images/image-waffle-thumbnail.jpg",
       mobile: "/images/image-waffle-mobile.jpg",
@@ -11,6 +12,7 @@ export const data = [
     price: "6.5",
   },
   {
+    id: 2,
     image: {
       thumbnail: "/images/image-creme-brulee-thumbnail.jpg",
       mobile: "/images/image-creme-brulee-mobile.jpg",
@@ -22,6 +24,7 @@ export const data = [
     price: "7.0",
   },
   {
+    id: 3,
     image: {
       thumbnail: "/images/image-macaron-thumbnail.jpg",
       mobile: "/images/image-macaron-mobile.jpg",
@@ -33,6 +36,7 @@ export const data = [
     price: "8.0",
   },
   {
+    id: 4,
     image: {
       thumbnail: "/images/image-tiramisu-thumbnail.jpg",
       mobile: "/images/image-tiramisu-mobile.jpg",
@@ -44,6 +48,7 @@ export const data = [
     price: "5.5",
   },
   {
+    id: 5,
     image: {
       thumbnail: "/images/image-baklava-thumbnail.jpg",
       mobile: "/images/image-baklava-mobile.jpg",
@@ -55,6 +60,7 @@ export const data = [
     price: "4.0",
   },
   {
+    id: 6,
     image: {
       thumbnail: "/images/image-meringue-thumbnail.jpg",
       mobile: "/images/image-meringue-mobile.jpg",
@@ -66,6 +72,7 @@ export const data = [
     price: "5.0",
   },
   {
+    id: 7,
     image: {
       thumbnail: "/images/image-cake-thumbnail.jpg",
       mobile: "/images/image-cake-mobile.jpg",
@@ -77,6 +84,7 @@ export const data = [
     price: "4.5",
   },
   {
+    id: 8,
     image: {
       thumbnail: "/images/image-brownie-thumbnail.jpg",
       mobile: "/images/image-brownie-mobile.jpg",
@@ -88,6 +96,7 @@ export const data = [
     price: "4.5",
   },
   {
+    id: 9,
     image: {
       thumbnail: "/images/image-panna-cotta-thumbnail.jpg",
       mobile: "/images/image-panna-cotta-mobile.jpg",
