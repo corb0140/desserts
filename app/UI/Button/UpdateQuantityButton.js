@@ -14,14 +14,14 @@ export default function UpdateQuantityButton({
     >
       <button
         onClick={decrease}
-        className="h-5 w-5 flex items-center justify-center"
+        className="h-5 w-5 rounded-full hover:bg-secondary transition duration-300 flex items-center justify-center"
       >
-        <Image src={decrement} alt="minus sign icon" />
+        <Image src={decrement} alt="minus sign icon" className="" />
       </button>
       <span>{currentNumber}</span>
       <button
         onClick={increase}
-        className="h-5 w-5 flex items-center justify-center"
+        className="h-5 w-5 rounded-full hover:bg-secondary transition duration-300 flex items-center justify-center"
       >
         <Image src={increment} alt="plus sign icon" />
       </button>

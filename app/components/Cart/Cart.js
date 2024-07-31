@@ -84,7 +84,7 @@ const Cart = ({ emptyCart, numberOfItems, items }) => {
         <div className="flex flex-col gap-y-5">
           <div className="flex items-center justify-between">
             <p className="text-md text-Rose900">Order Total</p>
-            <p className="text-3xl font-bold text-Rose900">${total}0</p>
+            <p className="text-3xl font-bold text-Rose900">${total}</p>
           </div>
 
           <div className="h-12 w-full bg-Rose100 rounded-lg flex justify-center items-center gap-x-2">
