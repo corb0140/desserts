@@ -2,10 +2,22 @@ import Image from "next/image";
 import remove from "@/public/images/icon-remove-item.svg";
 import carbon from "@/public/images/icon-carbon-neutral.svg";
 import emptyCart from "@/public/images/illustration-empty-cart.svg";
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addToCart, removeFromCart } from "@/app/redux/slices/cartSlice";
+import Button from "@/app/UI/Button/Button";
 
-const Cart = ({ numberOfItems }) => {
-  const [cartItems, setCartItems] = useState([]);
+const Cart = () => {
+  const { loading, cartItems, itemPrice } = useSelector((state) => state.cart);
+
+  const dispatch = useDispatch();
+
+  const addToCartHandler = (item, qty) => {
+    dispatch(addToCart({ ...item, qty }));
+  };
+
+  const removeFromCartHandler = (id) => {
+    dispatch(removeFromCart(id));
+  };
 
   return (
     <div
@@ -13,22 +25,27 @@ const Cart = ({ numberOfItems }) => {
       lg:fixed lg:top-0 lg:right-24 lg:w-[24rem]"
     >
       <h2 className="text-2xl text-primary font-bold">
-        Your Cart {`(${cartItems.length === 0 ? 0 : numberOfItems})`}
+        Your Cart
+        {`(${loading ? 0 : cartItems.reduce((a, c) => a + c.qty, 0)})`}
       </h2>
 
-      <>
-        <Image
-          src={emptyCart}
-          alt="icon of chocolate with a slice taken out"
-          className="self-center h-[10rem] w-[10rem]"
-        />
-
-        <p className="self-center text-Rose500 text-sm font-semibold">
-          Your added items will appear here
-        </p>
-      </>
-
-      {/* cartItems.map((item, index) => {
+      {loading ? (
+        <div>
+          <div className="py-5 px-2">Loading...</div>
+        </div>
+      ) : cartItems.length === 0 ? (
+        <>
+          <Image
+            src={emptyCart}
+            alt="icon of chocolate with a slice taken out"
+            className="self-center h-[10rem] w-[10rem]"
+          />
+          <p className="self-center text-Rose500 text-sm font-semibold">
+            Your added items will appear here
+          </p>
+        </>
+      ) : (
+        cartItems.map((item, index) => {
           return (
             <div
               key={index}
@@ -39,12 +56,21 @@ const Cart = ({ numberOfItems }) => {
                   <h3 className="font-semibold text-Rose900">{item.name}</h3>
                   <div className="flex items-center gap-x-5">
                     <span className="text-sm text-primary">
-                      {quantities[item.id] || 1}x
+                      <select
+                        value={item.qty}
+                        onChange={(e) =>
+                          addToCartHandler(item, Number(e.target.value))
+                        }
+                      >
+                        {[...Array(item.qty).keys()].map((x) => (
+                          <option key={x + 1} value={x + 1}>
+                            {x + 1}
+                          </option>
+                        ))}
+                      </select>
                     </span>
-                    <p className="text-sm text-gray-400">
-                      @ ${parseFloat(item.price)}
-                    </p>
-                    <p className="text-sm text-gray-400">${itemTotal}</p>
+                    <p className="text-sm text-gray-400">@ ${item.price}</p>
+                    <p className="text-sm text-gray-400">${itemPrice}</p>
                   </div>
                 </div>
               </div>
@@ -57,12 +83,13 @@ const Cart = ({ numberOfItems }) => {
                   src={remove}
                   alt="icon for removing item"
                   className="font-bold"
-                  onClick={() => removeItem(item.id)}
+                  onClick={() => removeFromCartHandler(item.id)}
                 />
               </div>
             </div>
           );
-        }) */}
+        })
+      )}
 
       {cartItems.length === 0 ? (
         ""
@@ -85,6 +112,8 @@ const Cart = ({ numberOfItems }) => {
               delivery
             </p>
           </div>
+
+          <Button text="Confirm Order" style="bg-primary text-white" />
         </div>
       )}
     </div>

@@ -1,4 +1,5 @@
 import "./globals.css";
+import { StoreProvider } from "@/app/redux/StoreProvider";
 
 export const metadata = {
   title: "Dessert E-Commerce",
@@ -8,7 +9,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="font-RedHat bg-Rose50">{children}</body>
+      <body className="font-RedHat bg-Rose50">
+        <StoreProvider>{children}</StoreProvider>
+      </body>
     </html>
   );
 }

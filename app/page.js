@@ -1,13 +1,17 @@
 "use client";
 
 import { data } from "@/app/data/Data";
-import { useState, useRef } from "react";
+import { useEffect } from "react";
 import Cart from "./components/Cart/Cart";
 import ProductItem from "@/app/components/Products/ProductItem";
+import { hideLoading } from "./redux/slices/cartSlice";
+import { useDispatch } from "react-redux";
 
 export default function Home() {
-  const [cartItems, setCartItems] = useState([]);
-  const [quantities, setQuantities] = useState({});
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(hideLoading());
+  }, [dispatch]);
 
   return (
     <main className="flex min-h-screen flex-col p-5 lg:px-24 lg:py-10">
@@ -19,7 +23,7 @@ export default function Home() {
         })}
       </div>
 
-      <Cart items={cartItems} />
+      <Cart />
     </main>
   );
 }
