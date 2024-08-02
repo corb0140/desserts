@@ -26,6 +26,7 @@ const AddToCart = ({
       const existingItem = cartItems.find((item) => item.id === products.id);
       if (existingItem) {
         newQty = existingItem.qty + 1;
+        setQty(newQty);
       }
     }
     dispatch(addToCart({ ...products, qty: newQty }));
@@ -39,6 +40,7 @@ const AddToCart = ({
       const existingItem = cartItems.find((item) => item.id === products.id);
       if (existingItem) {
         newQty = existingItem.qty - 1;
+        setQty(newQty);
       }
     }
     dispatch(addToCart({ ...products, qty: newQty }));
@@ -56,18 +58,7 @@ const AddToCart = ({
       ) : (
         <UpdateQuantityButton
           increase={addToCartHandler}
-          currentNumber={`${(
-            <select
-              value={qty}
-              onChange={(e) => setQty(Number(e.target.value))}
-            >
-              {Array.from({ length: products.countInStock }, (_, i) => (
-                <option key={i + 1} value={i + 1}>
-                  {i + 1}
-                </option>
-              ))}
-            </select>
-          )}`}
+          currentNumber={qty}
           decrease={subtractFromCartHandler}
         />
       )}

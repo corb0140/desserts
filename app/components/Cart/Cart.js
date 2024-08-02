@@ -4,10 +4,11 @@ import carbon from "@/public/images/icon-carbon-neutral.svg";
 import emptyCart from "@/public/images/illustration-empty-cart.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart, removeFromCart } from "@/app/redux/slices/cartSlice";
-import Button from "@/app/UI/Button/Button";
 
 const Cart = () => {
-  const { loading, cartItems, itemPrice } = useSelector((state) => state.cart);
+  const { loading, cartItems, itemPrice, totalPrice, taxPrice } = useSelector(
+    (state) => state.cart
+  );
 
   const dispatch = useDispatch();
 
@@ -95,9 +96,16 @@ const Cart = () => {
         ""
       ) : (
         <div className="flex flex-col gap-y-5">
-          <div className="flex items-center justify-between">
-            <p className="text-md text-Rose900">Order Total</p>
-            <p className="text-3xl font-bold text-Rose900">$0</p>
+          <div className="flex flex-col">
+            <div className="flex items-center justify-between">
+              <p className="text-md text-Rose900">Tax Price</p>
+              <p className="text-3xl font-bold text-Rose900">${taxPrice}</p>
+            </div>
+
+            <div className="flex items-center justify-between">
+              <p className="text-md text-Rose900">Order Total</p>
+              <p className="text-3xl font-bold text-Rose900">${totalPrice}</p>
+            </div>
           </div>
 
           <div className="h-12 w-full bg-Rose100 rounded-lg flex justify-center items-center gap-x-2">
@@ -113,7 +121,12 @@ const Cart = () => {
             </p>
           </div>
 
-          <Button text="Confirm Order" style="bg-primary text-white" />
+          <button
+            className="bg-primary rounded-full h-12 flex items-center justify-center text-sm 
+        font-medium text-white hover:cursor-pointer"
+          >
+            Confirm Order
+          </button>
         </div>
       )}
     </div>
