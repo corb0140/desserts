@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   loading: true, // use loading to fix the rendering issue in next.js in the server and client side
   cartItems: [], // default no item in cart
+  qty: 1, // default quantity of the item
 };
 
 //function to add decimals to the total price of the items in the cart
@@ -15,6 +16,10 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+    updateQty: (state, action) => {
+      state.qty = action.payload;
+    },
+
     addToCart: (state, action) => {
       const item = action.payload; // action.payload contains the item that we want to add to the cart
 
@@ -67,6 +72,7 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, removeFromCart, hideLoading } = cartSlice.actions;
+export const { addToCart, removeFromCart, hideLoading, updateQty } =
+  cartSlice.actions;
 
 export default cartSlice.reducer;

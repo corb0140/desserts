@@ -3,7 +3,11 @@ import remove from "@/public/images/icon-remove-item.svg";
 import carbon from "@/public/images/icon-carbon-neutral.svg";
 import emptyCart from "@/public/images/illustration-empty-cart.svg";
 import { useSelector, useDispatch } from "react-redux";
-import { addToCart, removeFromCart } from "@/app/redux/slices/cartSlice";
+import {
+  addToCart,
+  removeFromCart,
+  updateQty,
+} from "@/app/redux/slices/cartSlice";
 
 const Cart = () => {
   const { loading, cartItems, totalPrice, taxPrice } = useSelector(
@@ -18,6 +22,7 @@ const Cart = () => {
 
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id));
+    dispatch(updateQty(1));
   };
 
   return (
