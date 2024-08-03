@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { addToCart, removeFromCart } from "@/app/redux/slices/cartSlice";
 
 const Cart = () => {
-  const { loading, cartItems, itemPrice, totalPrice, taxPrice } = useSelector(
+  const { loading, cartItems, totalPrice, taxPrice } = useSelector(
     (state) => state.cart
   );
 
@@ -47,6 +47,7 @@ const Cart = () => {
         </>
       ) : (
         cartItems.map((item, index) => {
+          const itemPrice = (item.price * item.qty).toFixed(2);
           return (
             <div
               key={index}

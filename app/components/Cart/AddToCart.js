@@ -22,12 +22,10 @@ const AddToCart = ({
 
   const addToCartHandler = () => {
     let newQty = qty;
-    if (increasePerClick) {
-      const existingItem = cartItems.find((item) => item.id === products.id);
-      if (existingItem) {
-        newQty = existingItem.qty + 1;
-        setQty(newQty);
-      }
+    const existingItem = cartItems.find((item) => item.id === products.id);
+    if (increasePerClick && existingItem) {
+      newQty = existingItem.qty + 1;
+      setQty(newQty);
     }
     dispatch(addToCart({ ...products, qty: newQty }));
 
@@ -36,19 +34,21 @@ const AddToCart = ({
 
   const subtractFromCartHandler = () => {
     let newQty = qty;
+    const existingItem = cartItems.find((item) => item.id === products.id);
+
     if (increasePerClick) {
-      const existingItem = cartItems.find((item) => item.id === products.id);
-      if (existingItem) {
-        newQty = existingItem.qty - 1;
-        setQty(newQty);
-      }
+      newQty = existingItem.qty - 1;
+      setQty(newQty);
     }
+
     dispatch(addToCart({ ...products, qty: newQty }));
   };
 
+  const isProductInCart = cartItems.find((item) => item.id === products.id);
+
   return (
     <>
-      {cartItems.length === 0 ? (
+      {!isProductInCart ? (
         <Button
           src={cartIcon}
           text="Add to Cart"
