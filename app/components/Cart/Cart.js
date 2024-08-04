@@ -122,7 +122,7 @@ const Cart = ({ click }) => {
               style={{ objectFit: "contain" }}
             />
             <p className="text-sm text-Rose900">
-              This is a <span className="font-bold">carbon-neutral</span>
+              This is a <span className="font-bold">carbon-neutral </span>
               delivery
             </p>
           </div>
