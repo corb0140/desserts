@@ -33,13 +33,8 @@ const cartSlice = createSlice({
       ); // check if the item is already in the cart
 
       if (existingItem) {
-        // state.cartItems = state.cartItems.map((cartItem) =>
-        //   cartItem.id === existingItem.id ? item : cartItem
-        // ); // if the item is already in the cart, update the quantity
-
         existingItem.qty += item.qty;
       } else {
-        // state.cartItems = [...state.cartItems, item]; // if the item is not in the cart, add the item to the cart
         state.cartItems.push({ ...item, qty: 1 });
       }
 
@@ -74,13 +69,26 @@ const cartSlice = createSlice({
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
 
+    removeAllFromCart: (state) => {
+      state.cartItems = [];
+      state.itemPrice = 0;
+      state.taxPrice = 0;
+      state.totalPrice = 0;
+      localStorage.removeItem("cartItems");
+    },
+
     hideLoading: (state) => {
       state.loading = false;
     },
   },
 });
 
-export const { addToCart, removeFromCart, hideLoading, updateQty } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  removeAllFromCart,
+  hideLoading,
+  updateQty,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;
