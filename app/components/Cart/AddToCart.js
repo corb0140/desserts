@@ -11,27 +11,21 @@ import {
   updateQty,
 } from "@/app/redux/slices/cartSlice";
 
-// import { useState } from "react";
-
-const AddToCart = ({
-  products,
-  //   redirect = true,
-  increasePerClick = false,
-}) => {
+const AddToCart = ({ products, increasePerClick = false }) => {
   const dispatch = useDispatch();
-  const { cartItems, qty } = useSelector((state) => state.cart);
+  const { cartItems } = useSelector((state) => state.cart);
+  const existingItem = cartItems.find((item) => item.id === products.id);
+  const qty = existingItem ? existingItem.qty : 1;
 
   const addToCartHandler = () => {
     let newQty = qty;
     const existingItem = cartItems.find((item) => item.id === products.id);
+
     if (increasePerClick && existingItem) {
-      newQty = existingItem.qty + 1;
-      dispatch(updateQty(newQty));
+      newQty += 1;
     }
     dispatch(addToCart({ ...products, qty: newQty }));
-
-    console.log("cartItems", cartItems);
-    console.log("qty", qty);
+    dispatch(updateQty({ id: products.id, qty: newQty }));
   };
 
   const subtractFromCartHandler = () => {
@@ -39,23 +33,19 @@ const AddToCart = ({
     const existingItem = cartItems.find((item) => item.id === products.id);
 
     if (increasePerClick && existingItem) {
-      newQty = existingItem.qty - 1;
-      dispatch(updateQty(newQty));
+      newQty -= 1;
     }
 
-    dispatch(addToCart({ ...products, qty: newQty }));
-
-    if (newQty <= 0) {
+    if (newQty > 0) {
+      dispatch(updateQty({ id: products.id, qty: newQty }));
+    } else {
       dispatch(removeFromCart(products.id));
-      dispatch(updateQty(1));
     }
   };
 
-  const isProductInCart = cartItems.find((item) => item.id === products.id);
-
   return (
     <>
-      {!isProductInCart ? (
+      {!existingItem ? (
         <Button
           src={cartIcon}
           text="Add to Cart"

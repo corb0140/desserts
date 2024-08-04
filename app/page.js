@@ -1,17 +1,24 @@
 "use client";
 
 import { data } from "@/app/data/Data";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Cart from "./components/Cart/Cart";
 import ProductItem from "@/app/components/Products/ProductItem";
 import { hideLoading } from "./redux/slices/cartSlice";
 import { useDispatch } from "react-redux";
+import CartModal from "@/app/UI/Modal/CartModal";
 
 export default function Home() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(hideLoading());
   }, [dispatch]);
+
+  const [showModal, setShowModal] = useState(false);
+
+  const openModal = () => {
+    setShowModal(!showModal);
+  };
 
   return (
     <main className="flex min-h-screen flex-col p-5 lg:px-24 lg:py-10">
@@ -23,7 +30,9 @@ export default function Home() {
         })}
       </div>
 
-      <Cart />
+      <Cart click={openModal} />
+
+      {showModal && <CartModal click={openModal} />}
     </main>
   );
 }

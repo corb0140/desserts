@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   loading: true, // use loading to fix the rendering issue in next.js in the server and client side
   cartItems: [], // default no item in cart
-  qty: 1, // default quantity of the item
 };
 
 //function to add decimals to the total price of the items in the cart
@@ -17,7 +16,13 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     updateQty: (state, action) => {
-      state.qty = action.payload;
+      const { id, qty } = action.payload;
+
+      const item = state.cartItems.find((cartItem) => cartItem.id === id);
+
+      if (item) {
+        item.qty = qty;
+      }
     },
 
     addToCart: (state, action) => {
@@ -28,11 +33,14 @@ const cartSlice = createSlice({
       ); // check if the item is already in the cart
 
       if (existingItem) {
-        state.cartItems = state.cartItems.map((cartItem) =>
-          cartItem.id === existingItem.id ? item : cartItem
-        ); // if the item is already in the cart, update the quantity
+        // state.cartItems = state.cartItems.map((cartItem) =>
+        //   cartItem.id === existingItem.id ? item : cartItem
+        // ); // if the item is already in the cart, update the quantity
+
+        existingItem.qty += item.qty;
       } else {
-        state.cartItems = [...state.cartItems, item]; // if the item is not in the cart, add the item to the cart
+        // state.cartItems = [...state.cartItems, item]; // if the item is not in the cart, add the item to the cart
+        state.cartItems.push({ ...item, qty: 1 });
       }
 
       state.itemPrice = addDecimals(

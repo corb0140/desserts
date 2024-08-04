@@ -9,7 +9,7 @@ import {
   updateQty,
 } from "@/app/redux/slices/cartSlice";
 
-const Cart = () => {
+const Cart = ({ click }) => {
   const { loading, cartItems, totalPrice, taxPrice } = useSelector(
     (state) => state.cart
   );
@@ -130,6 +130,7 @@ const Cart = () => {
           <button
             className="bg-primary rounded-full h-12 flex items-center justify-center text-sm 
         font-medium text-white hover:cursor-pointer"
+            onClick={click}
           >
             Confirm Order
           </button>
