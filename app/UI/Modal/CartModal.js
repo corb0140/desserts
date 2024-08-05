@@ -17,11 +17,12 @@ const CartModal = ({ click }) => {
     router.push("/");
   };
   return (
-    <>
+    <div className="flex lg:items-center lg:justify-center">
       <div className="fixed h-screen w-full bottom-0 right-0 bg-black bg-opacity-70"></div>
       <div
-        className="fixed bottom-0 h-auto w-full right-0 bg-white rounded-t-[.5rem] shadow-2xl
-      flex flex-col gap-y-5 px-5 py-10"
+        className="fixed h-[90%] w-full lg:w-1/3 bottom-0 right-0 lg:bottom-[50%] lg:right-[50%] 
+        lg:translate-x-[50%] lg:translate-y-[50%] bg-white rounded-t-[.5rem] lg:rounded-[.5rem] shadow-2xl
+        flex flex-col gap-y-5 px-5 py-10"
       >
         <Image
           src={confirm}
@@ -37,7 +38,8 @@ const CartModal = ({ click }) => {
           </p>
         </h1>
 
-        <div className="bg-Rose100 h-auto w-full rounded-lg py-5">
+        {/* ITEMS */}
+        <div className="bg-Rose100 h-[60%] overflow-y-auto w-full rounded-lg py-5">
           {cartItems.map((item, index) => {
             const itemPrice = (item.price * item.qty).toFixed(2);
             return (
@@ -112,7 +114,7 @@ const CartModal = ({ click }) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -28,7 +28,7 @@ const Cart = ({ click }) => {
   return (
     <div
       className="h-auto w-full mt-8 bg-white rounded-lg py-8 px-5 flex flex-col gap-y-8 shadow-md 
-      lg:fixed lg:top-0 lg:right-24 lg:w-[24rem]"
+       lg:top-0 lg:right-24 lg:w-[24rem]"
     >
       <h2 className="text-2xl text-primary font-bold">
         Your Cart

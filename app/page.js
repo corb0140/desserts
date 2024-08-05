@@ -24,13 +24,17 @@ export default function Home() {
     <main className="flex min-h-screen flex-col p-5 lg:px-24 lg:py-10">
       <h1 className="text-4xl font-bold tracking-wide">Desserts</h1>
 
-      <div className="flex flex-col gap-y-5 pt-8 lg:grid lg:grid-cols-3 lg:gap-x-5 lg:w-2/3">
-        {data.map((item) => {
-          return <ProductItem products={item} key={item.id} />;
-        })}
-      </div>
+      <div className="flex flex-col gap-y-5 lg:flex-row lg:gap-x-5">
+        <div className="flex flex-col gap-y-5 pt-8 lg:grid lg:grid-cols-3 lg:gap-x-5 lg:w-3/4">
+          {data.map((item) => {
+            return <ProductItem products={item} key={item.id} />;
+          })}
+        </div>
 
-      <Cart click={openModal} />
+        <div className="lg:w-1/4">
+          <Cart click={openModal} />
+        </div>
+      </div>
 
       {showModal && <CartModal click={openModal} />}
     </main>
