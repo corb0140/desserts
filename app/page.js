@@ -7,6 +7,7 @@ import ProductItem from "@/app/components/Products/ProductItem";
 import { hideLoading } from "./redux/slices/cartSlice";
 import { useDispatch } from "react-redux";
 import CartModal from "@/app/UI/Modal/CartModal";
+import Footer from "./components/Footer/Footer";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -35,6 +36,8 @@ export default function Home() {
           <Cart click={openModal} />
         </div>
       </div>
+
+      <Footer />
 
       {showModal && <CartModal click={openModal} />}
     </main>
